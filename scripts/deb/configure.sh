@@ -3,8 +3,8 @@ set -eu
 
 echo "Configuring DEB-based build"
 
-ARCH=amd64
-DIST=raring
+ARCH=${ARCH:-amd64}
+DIST=${DIST:-raring}
 BASEPATH=/var/cache/pbuilder/base-$DIST-$ARCH.cow
 
 dpkg -l cowbuilder python-rpm curl ocaml-nox apt-utils gdebi-core software-properties-common > /dev/null 2>&1 || \
