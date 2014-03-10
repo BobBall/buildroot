@@ -17,11 +17,11 @@ echo -n "Writing pbuilder configuration..."
 mkdir -p pbuilder
 for file in scripts/deb/templates/*; do
     filename=`basename $file`
-    cp $file pbuilder/$filename
+    cp $file pbuilder/${filename}
     for replace_var in "APT_REPOS" "PWD" "ARCH" "BASEPATH" "DIST" "MIRROR" ; do
-	sed -ie "s~@$replace_var@~${!replace_var}~g" pbuilder/$filename
+	sed -ie "s~@$replace_var@~${!replace_var}~g" pbuilder/${filename}
     done
-    chmod 755 pbuilder/$filename
+    chmod 755 pbuilder/${filename}
 done
 
 echo " done"
