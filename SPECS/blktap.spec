@@ -5,19 +5,20 @@ Release: 2%{?dist}
 Group:   System/Hypervisor
 License: LGPL+linking exception
 URL:  https://github.com/xapi-project/blktap
-Source0: https://github.com/xapi-project/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/xapi-project/%{name}/archive/4703674e72135e572cd89cd1616d627b78980c45/%{name}-%{version}.tar.gz
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libaio-devel
 BuildRequires: libtool
 BuildRequires: libuuid-devel
 BuildRequires: xen-devel
+BuildRequires: openssl-devel
 
 %description
 Enhanced version of tapdisk with support for storage mirroring.
 
 %prep 
-%setup -q
+%setup -q -n blktap-4703674e72135e572cd89cd1616d627b78980c45
 
 
 %build
@@ -42,6 +43,8 @@ make install DESTDIR=%{buildroot}
 %files
 %{_libdir}/%{name}/bin/*
 %{_libdir}/%{name}/etc/udev/rules.d/blktap.rules
+%{_libdir}/%{name}/etc/cron.daily/blktap-log-cleanup
+%{_libdir}/%{name}/etc/logrotate.d/blktap
 %{_libdir}/%{name}/include/blktap/*
 %{_libdir}/%{name}/include/vhd/*
 %{_libdir}/%{name}/lib/*
