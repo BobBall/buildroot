@@ -119,47 +119,29 @@ MAPPING = {
     "xen": ["xen-hypervisor", "qemu-system-x86", "blktap-utils"],
     "libuuid": ["uuid"],
     "libvirt": ["libvirt0", "libvirt-bin"],
-    "xen-libs": ["libxen-4.2"],
-    "make": ["make"],
+    "xen-libs": ["libxen-4.3"],
     "ncurses": ["libncurses5"],
     "chkconfig": [], 
     "initscripts": [], 
     "PyPAM": ["python-pam"],
-    "perl": ["perl"],
-    "gawk": ["gawk"],
     "pam": ["libpam0g"],
     "tetex-latex": ["texlive-base"],
     "zlib": ["zlib1g"],
-    "git": ["git"],
     "stunnel": ["stunnel"],
     "bash-completion": ["bash-completion"],
-    "python": ["python"],
     "python2": ["python"],
-    "time": ["time"],
     "newt": ["libnewt0.52"],
-    "flex": ["flex"],
-    "bison": ["bison"],
     "/sbin/ldconfig": ["/sbin/ldconfig"],
     "kernel-headers": ["linux-headers-3.2.0-51-generic"],
     "libvirt-docs": ["libvirt-doc"],
-    "chrpath": ["chrpath"],
-    "kernel": ["linux-image"],
-    "kernel-firmware": ["linux-firmware"],
-    "swig": ["swig"],
+    "kernel": ["linux-image-amd64"],
+    "kernel-firmware": ["firmware-linux-free"],
     "/bin/sh": [],
-    "xen-utils": ["xen-utils"],
     "xen-runtime": ["xen-utils"],
     "nfs-utils": ["nfs-common"],
-    "hwdata": ["hwdata"],
     "redhat-lsb-core": ["lsb-base"],
     "sg3_utils": ["sg3-utils"],
-    "ethtool": ["ethtool"],
-    "qemu-system-x86": ["qemu-system-x86"],
     "python-argparse": ["libpython2.7-stdlib"],
-    "autoconf": ["autoconf"],
-    "automake": ["automake"],
-    "libtool": ["libtool"],
-    "libaio": ["libaio"],
 }
 
 SECONDARY_MAPPING = {
@@ -191,7 +173,7 @@ def map_package(name):
     if name.endswith( "-devel" ):
         is_devel = True
         name = name[ :-len("-devel") ]
-    mapped = MAPPING[name]
+    mapped = MAPPING.get(name, [name])
     res = []
     for debname in mapped:
         if is_devel:
