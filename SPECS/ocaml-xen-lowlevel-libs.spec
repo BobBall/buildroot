@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xen-lowlevel-libs
-Version:        0.9.9
+Version:        %(date +%%y%%m%%d)
 Release:        3%{?dist}
 Summary:        Xen hypercall bindings for OCaml
 License:        LGPL
 Group:          Development/Libraries
 URL:            https://github.com/xapi-project/ocaml-xen-lowlevel-libs
-Source0:        https://github.com/xapi-project/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/%{name}/archive/master/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -17,6 +17,7 @@ BuildRequires:  libuuid-devel
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  xen-devel
 BuildRequires:  ocaml-cstruct-devel
+BuildRequires:  ocaml-io-page-devel
 Requires:       ocaml
 Requires:       ocaml-findlib
 
@@ -33,9 +34,11 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%setup -q -n ocaml-xen-lowlevel-libs-master
 
 %build
+make configure
+./configure --disable-xenlight
 make
 
 %install
@@ -52,35 +55,41 @@ make install DESTDIR=${buildroot}
 %files devel
 %doc README.md
 %{_libdir}/ocaml/xenctrl/*
+%{_libdir}/ocaml/xen-event-unix/*
+%{_libdir}/ocaml/xen-grant/*
+%{_libdir}/ocaml/xen-event/*
 #%{_libdir}/ocaml/xenlight/*
 %{_libdir}/ocaml/stublibs/dllxenctrl_stubs.so
 %{_libdir}/ocaml/stublibs/dllxenctrl_stubs.so.owner
+%{_libdir}/ocaml/stublibs/dllxen_event_unix_stubs.so*
+%{_libdir}/ocaml/stublibs/dllxen_grant_unix_stubs.so*
+%{_libdir}
 #%{_libdir}/ocaml/stublibs/dllxenlight_stubs.so
 #%{_libdir}/ocaml/stublibs/dllxenlight_stubs.so.owner
 #%{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so
 #%{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so.owner
 
-%exclude %{_libdir}/ocaml/stublibs/dllxenlight_stubs.so
-%exclude %{_libdir}/ocaml/stublibs/dllxenlight_stubs.so.owner
-%exclude %{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so
-%exclude %{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so.owner
-%exclude %{_libdir}/ocaml/xenlight/META
-%exclude %{_libdir}/ocaml/xenlight/libxenlight_stubs.a
-%exclude %{_libdir}/ocaml/xenlight/libxentoollog_stubs.a
-%exclude %{_libdir}/ocaml/xenlight/xenlight.a
-%exclude %{_libdir}/ocaml/xenlight/xenlight.cma
-%exclude %{_libdir}/ocaml/xenlight/xenlight.cmi
-%exclude %{_libdir}/ocaml/xenlight/xenlight.cmx
-%exclude %{_libdir}/ocaml/xenlight/xenlight.cmxa
-%exclude %{_libdir}/ocaml/xenlight/xenlight.cmxs
-%exclude %{_libdir}/ocaml/xenlight/xenlight.mli
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.a
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.cma
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmi
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmx
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmxa
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmxs
-%exclude %{_libdir}/ocaml/xenlight/xentoollog.mli
+#%exclude %{_libdir}/ocaml/stublibs/dllxenlight_stubs.so
+#%exclude %{_libdir}/ocaml/stublibs/dllxenlight_stubs.so.owner
+#%exclude %{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so
+#%exclude %{_libdir}/ocaml/stublibs/dllxentoollog_stubs.so.owner
+#%exclude %{_libdir}/ocaml/xenlight/META
+#%exclude %{_libdir}/ocaml/xenlight/libxenlight_stubs.a
+#%exclude %{_libdir}/ocaml/xenlight/libxentoollog_stubs.a
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.a
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.cma
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.cmi
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.cmx
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.cmxa
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.cmxs
+#%exclude %{_libdir}/ocaml/xenlight/xenlight.mli
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.a
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.cma
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmi
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmx
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmxa
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.cmxs
+#%exclude %{_libdir}/ocaml/xenlight/xentoollog.mli
 
 
 %changelog

@@ -1,11 +1,11 @@
 Name:           xcp-rrdd
-Version:        0.9.2
+Version:        %(date +%%y%%m%%d)
 Release:        1%{?dist}
 Summary:        Statistics gathering daemon for the xapi toolstack
 License:        LGPL
 Group:          Development/Other
 URL:            https://github.com/xapi-project/xcp-rrdd
-Source0:        https://github.com/xapi-project/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/%{name}/archive/master/%{name}-%{version}.tar.gz
 Source1:        xcp-rrdd-init
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
@@ -20,6 +20,7 @@ BuildRequires:  ocaml-xen-api-libs-transitional-devel
 BuildRequires:  ocaml-xen-lowlevel-libs-devel
 BuildRequires:  ocaml-xenops-devel
 BuildRequires:  ocaml-oclock-devel
+BuildRequires:  ocaml-rrd-transport
 BuildRequires:  forkexecd-devel
 BuildRequires:  message-switch-devel
 BuildRequires:  xen-devel
@@ -29,7 +30,7 @@ Requires:       redhat-lsb-core
 Statistics gathering daemon for the xapi toolstack.
 
 %prep
-%setup -q
+%setup -q -n %{name}-master
 cp %{SOURCE1} xcp-rrdd-init
 
 %build

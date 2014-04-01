@@ -17,7 +17,6 @@ Requires:       xenopsd-xc
 Requires:       xenops-cli
 Requires:       ffs
 Requires:       sm-cli
-Requires:       xapi-libvirt-storage
 Requires:       xcp-sm
 Requires:       xcp-networkd
 Requires:       xcp-rrdd

@@ -1,13 +1,14 @@
 %global debug_package %{nil}
 
 Name:           ocaml-stdext
-Version:        0.10.0
+Version:        %(date +%%y%%m%%d)
 Release:        1%{?dist}
 Summary:        Deprecated misc library functions for OCaml
 License:        LGPL
 Group:          Development/Libraries
 URL:            https://github.com/xapi-project/stdext
-Source0:        https://github.com/xapi-project/stdext/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/stdext/archive/master/%{name}-%{version}.tar.gz
+Patch0:         stdext-ocaml401.patch
 BuildRequires:  ocaml
 BuildRequires:  ocaml-fd-send-recv-devel
 BuildRequires:  ocaml-findlib
@@ -28,7 +29,8 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n stdext-%{version}
+%setup -q -n stdext-master
+%patch0 -p1
 
 %build
 make

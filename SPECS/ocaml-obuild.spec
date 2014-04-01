@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name:           ocaml-obuild
-Version:        0.0.2
+Version:        0.0.4
 Release:        1%{?dist}
 Summary:        Simple build tool for OCaml programs
 License:        BSD2
 Group:          Development/Other
 URL:            http://github.com/vincenthz/obuild
-Source0:        https://github.com/vincenthz/obuild/archive/v%{version}/obuild-%{version}.tar.gz
+Source0:        https://github.com/vincenthz/obuild/archive/obuild-v%{version}/obuild-%{version}.tar.gz
 BuildRequires:  ocaml
 Requires:       ocaml
 
@@ -23,7 +23,7 @@ The design is based on cabal, and borrows most of its layout and way of
 working, adapting parts where necessary to support OCaml fully.
 
 %prep
-%setup -q -n obuild-%{version}
+%setup -q -n obuild-obuild-v%{version}
 
 %build
 ./bootstrap
@@ -42,6 +42,9 @@ install dist/build/obuild-from-oasis/obuild-from-oasis %{buildroot}/%{_bindir}
 %{_bindir}/obuild-from-oasis
 
 %changelog
+* Fri Mar 28 2014 Bob Ball <bob.ball@citrix.com> - 0.0.4
+- Upgrade to 0.0.4 
+
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com> - 0.0.2-1
 - Initial package
 

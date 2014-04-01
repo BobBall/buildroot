@@ -1,11 +1,11 @@
 Name:           xenopsd
-Version:        0.9.34
+Version:        %(date +%%y%%m%%d)
 Release:        1%{?dist}
 Summary:        Simple VM manager
 License:        LGPL
 Group:          Development/Other
 URL:            https://github.com/xapi-project/xenopsd
-Source0:        https://github.com/xapi-project/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/%{name}/archive/master/%{name}-%{version}.tar.gz
 Source1:        xenopsd-xc-init
 Source2:        xenopsd-simulator-init
 Source3:        xenopsd-libvirt-init
@@ -82,7 +82,7 @@ A synthetic VM manager for testing.
 #Simple VM manager for Xen using libxenlight
 
 %prep
-%setup -q
+%setup -q -n xenopsd-master
 cp %{SOURCE1} xenopsd-xc-init
 cp %{SOURCE2} xenopsd-simulator-init
 cp %{SOURCE3} xenopsd-libvirt-init

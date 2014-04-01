@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xenops
-Version:        0.9.2
+Version:        %(date +%%y%%m%%d)
 Release:        1%{?dist}
 Summary:        Low-level xen control operations OCaml
 License:        LGPL
 Group:          Development/Libraries
 URL:            https://github.com/xapi-project/xenops
-Source0:        https://github.com/xapi-project/xenops/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/xenops/archive/master/%{name}-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -36,7 +36,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xenops-%{version}
+%setup -q -n xenops-master
 
 %build
 make

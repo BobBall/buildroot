@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-idl
-Version:        0.9.14
+Version:        %(date +%%y%%m%%d)
 Release:        1%{?dist}
 Summary:        Common interface definitions for XCP services
 License:        LGPL
 Group:          Development/Libraries
 URL:            https://github.com/xapi-project/xcp-idl
-Source0:        https://github.com/djs55/xcp-idl/archive/%{version}/xcp-idl-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/xcp-idl/archive/master/xcp-idl-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -48,7 +48,8 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xcp-idl-%{version}
+%setup -q -n xcp-idl-master
+#%patch0 -p1
 
 %build
 ocaml setup.ml -configure --destdir %{buildroot}/%{_libdir}/ocaml

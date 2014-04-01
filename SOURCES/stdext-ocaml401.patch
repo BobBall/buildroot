@@ -1,0 +1,10 @@
+diff -ur stdext-master/lib/pervasiveext.ml stdext-master-new/lib/pervasiveext.ml
+--- stdext-master/lib/pervasiveext.ml	2014-01-10 13:40:51.000000000 +0000
++++ stdext-master-new/lib/pervasiveext.ml	2014-03-26 12:22:19.246141507 +0000
+@@ -76,3 +76,6 @@
+ 			->
+ 			(let b = Printexc.get_backtrace () in
+ 			raise (Failure (msg ^ "\n" ^ b)))
++
++let (|>) a b = b a
++let (@@) a b = a b

@@ -10,20 +10,20 @@ Source1:        squeezed-init
 Source2:        squeezed-conf
 BuildRequires:  message-switch-devel
 BuildRequires:  oasis
-BuildRequires:  ocaml
+BuildRequires:  ocaml 
 BuildRequires:  ocaml-camlp4-devel
-BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-findlib 
 BuildRequires:  ocaml-oclock-devel
-BuildRequires:  ocaml-re-devel
+BuildRequires:  ocaml-re-devel 
 BuildRequires:  ocaml-rpc-devel
-BuildRequires:  ocaml-stdext-devel
+BuildRequires:  ocaml-stdext-devel 
 BuildRequires:  ocaml-xcp-idl-devel
-BuildRequires:  ocaml-xen-lowlevel-libs-devel
+BuildRequires:  ocaml-xen-lowlevel-libs-devel 
 BuildRequires:  ocaml-xenstore-clients-devel
-BuildRequires:  ocaml-xenstore-devel
-BuildRequires:  xen-devel
-Requires:       xen-libs
-Requires:       redhat-lsb-core
+BuildRequires:  ocaml-xenstore-devel 
+BuildRequires:  xen-devel 
+Requires:       xen-libs 
+Requires:       redhat-lsb-core 
 Requires:       message-switch
 
 %description
@@ -66,7 +66,7 @@ fi
 * Fri Apr 11 2014 Euan Harris <euan.harris@citrix.com> - 0.10.5-1
 - Switch build from obuild to oasis
 
-* Wed Sep 25 2013 David Scott <dave.scott@eu.citrix.com> - 0.10.4-1
+* Wed Sep 24 2013 David Scott <dave.scott@eu.citrix.com> - 0.10.4-1
 - Update to 0.10.4
 
 * Fri Sep 20 2013 David Scott <dave.scott@eu.citrix.com> - 0.10.3-1
@@ -83,4 +83,3 @@ fi
 
 * Wed Jun  5 2013 David Scott <dave.scott@eu.citrix.com>
 - Initial package
-

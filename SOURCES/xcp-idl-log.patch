@@ -1,0 +1,36 @@
+diff -ur xcp-idl-master-orig/lib/META xcp-idl-master/lib/META
+--- xcp-idl-master-orig/lib/META	2014-03-25 14:50:07.019175455 +0000
++++ xcp-idl-master/lib/META	2014-03-25 14:54:16.293175433 +0000
+@@ -69,5 +69,17 @@
+  archive(native, plugin) = "xcp_memory.cmxs"
+  exists_if = "xcp_memory.cma"
+ )
++
++package "log" (
++ version = "0.9.14"
++ description="Temporary set of to-be-deprecated libraries"
++ required = "stdext threads"
++ archive(byte) = "log.cma"
++ archive(byte, plugin) = "log.cma"
++ archive(native) = "log.cmxa"
++ archive(native, plugin) = "log.cmxs"
++ exists_if = "log.cma"
++)
++
+ # OASIS_STOP
+ 
+diff -ur xcp-idl-master-orig/_oasis xcp-idl-master/_oasis
+--- xcp-idl-master-orig/_oasis	2014-03-25 14:50:07.019175455 +0000
++++ xcp-idl-master/_oasis	2014-03-25 14:51:40.387175325 +0000
+@@ -62,6 +62,11 @@
+   Modules:            Memory_interface, Memory_client
+   BuildDepends:       xcp, threads, rpclib, rpclib.syntax
+ 
++Library log
++  Path: log
++  Modules: Syslog
++  BuildDepends: stdext, threads
++
+ Executable channel_helper
+   CompiledObject:     best
+   Path:               lib

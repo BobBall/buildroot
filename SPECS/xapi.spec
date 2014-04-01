@@ -2,17 +2,18 @@
 
 Summary: Xen toolstack for XCP
 Name:    xapi
-Version: 1.9.39
+Version: %(date +%%y%%m%%d)
 Release: 1%{?dist}
 Group:   System/Hypervisor
 License: LGPL+linking exception
 URL:  http://www.xen.org
-Source0: https://github.com/djs55/xen-api/archive/%{version}/xen-api-%{version}.tar.gz
+Source0: https://github.com/BobBall/xen-api/archive/xenserver-core/xen-api-%{version}.tar.gz
 Source1: xen-api-xapi-conf.in
 Source2: xen-api-init
 Source3: xen-api-xapissl
 Source4: xen-api-db-conf
 Source5: xen-api-pam
+Patch0: xen-api-ocaml401.patch
 BuildRequires: ocaml
 BuildRequires: ocaml-camlp4-devel
 BuildRequires: ocaml-findlib
@@ -50,6 +51,8 @@ BuildRequires: message-switch-devel
 BuildRequires: ocaml-xenstore-clients-devel
 BuildRequires: ocaml-tar-devel
 BuildRequires: python2-devel
+BuildRequires: ocaml-opasswd-devel
+BuildRequires: libffi-devel
 Requires: hwdata
 Requires: ocaml-xcp-inventory
 Requires: redhat-lsb-core
@@ -79,7 +82,8 @@ Requires: python
 Libraries for writing XenAPI clients in python.
 
 %prep 
-%setup -q -n xen-api-%{version}
+%setup -q -n xen-api-xenserver-core
+%patch0 -p1
 cp %{SOURCE1} xen-api-xapi-conf.in
 cp %{SOURCE2} xen-api-init
 cp %{SOURCE3} xen-api-xapissl
@@ -109,7 +113,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/init.d
 install -m 0755 xen-api-init %{buildroot}%{_sysconfdir}/init.d/xapi
 mkdir -p %{buildroot}/%{_libexecdir}/xapi
 install -m 0755 xen-api-xapissl %{buildroot}/%{_libexecdir}/xapi/xapissl
-install -m 0755 scripts/pci-info %{buildroot}/%{_libexecdir}/xapi/pci-info
 install -m 0755 scripts/update-mh-info %{buildroot}/%{_libexecdir}/xapi/update-mh-info
 mkdir -p %{buildroot}/etc/xapi
 install -m 0644 xen-api-xapi-conf %{buildroot}/etc/xapi.conf
@@ -148,7 +151,6 @@ fi
 %config(noreplace) /etc/xapi.conf
 %config(noreplace) /etc/xcp/pool.conf
 %{_libexecdir}/xapi/xapissl
-%{_libexecdir}/xapi/pci-info
 %{_libexecdir}/xapi/update-mh-info
 /etc/xapi/db.conf
 /etc/xapi/hook-scripts

@@ -1,0 +1,27 @@
+diff -ur xen-api-xenserver-core-orig/ocaml/license/license_init.ml xen-api-xenserver-core/ocaml/license/license_init.ml
+--- xen-api-xenserver-core-orig/ocaml/license/license_init.ml	2014-03-26 12:17:46.748141348 +0000
++++ xen-api-xenserver-core/ocaml/license/license_init.ml	2014-03-26 14:46:10.536137618 +0000
+@@ -19,6 +19,9 @@
+ module type V6clientS = module type of V6client
+ let v6client = ref (module V6client : V6clientS)
+ 
++let (|>) a b = b a
++let (@@) a b = a b
++
+ let fst4 (e,_,_,_) = e
+ and lst4 (_,_,_,i) = i
+ 
+diff -ur xen-api-xenserver-core-orig/ocaml/xapi/config_file_sync.ml xen-api-xenserver-core/ocaml/xapi/config_file_sync.ml
+--- xen-api-xenserver-core-orig/ocaml/xapi/config_file_sync.ml	2014-03-26 12:17:46.739141325 +0000
++++ xen-api-xenserver-core/ocaml/xapi/config_file_sync.ml	2014-03-26 14:26:35.998137954 +0000
+@@ -17,6 +17,10 @@
+ 
+ open OPasswd.Common
+ open Stringext
++open Pervasiveext
++
++let (|>) a b = b a
++let (@@) a b = a b
+ 
+ let superuser = "root"
+ 

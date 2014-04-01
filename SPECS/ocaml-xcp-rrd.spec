@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name:           ocaml-xcp-rrd
-Version:        0.9.0
+Version:        %(date +%%y%%m%%d)
 Release:        1%{?dist}
 Summary:        Round-Robin Datasources in OCaml
 License:        LGPL
 Group:          Development/Libraries
 URL:            https://github.com/xapi-project/xcp-rrd
-Source0:        https://github.com/xapi-project/xcp-rrd/archive/xcp-rrd-%{version}/xcp-rrd-%{version}.tar.gz
+Source0:        https://github.com/xapi-project/xcp-rrd/archive/master/xcp-rrd-%{version}.tar.gz
 BuildRequires:  ocaml
 BuildRequires:  ocaml-camlp4-devel
 BuildRequires:  ocaml-findlib
@@ -30,7 +30,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n xcp-rrd-xcp-rrd-%{version}
+%setup -q -n xcp-rrd-master
 
 %build
 make
