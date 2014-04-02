@@ -10,6 +10,7 @@ URL:  https://github.com/xapi-project/sm
 Source0: https://github.com/BobBall/sm/archive/f6cef7b960f35efe6369ea56d795de1f307246a9/sm-%{version}.tar.gz
 Source1: xcp-mpath-scsidev-rules
 Source2: xcp-mpath-scsidev-script
+Patch0: xcp-sm-pylint-fix.patch
 BuildRequires: python-devel
 BuildRequires: swig
 BuildRequires: xen-devel
@@ -23,6 +24,7 @@ This package contains storage backends used in XCP
 
 %prep
 %setup -q -n sm-f6cef7b960f35efe6369ea56d795de1f307246a9
+%patch0 -p1
 cp %{SOURCE1} xcp-mpath-scsidev-rules
 cp %{SOURCE2} xcp-mpath-scsidev-script
 
