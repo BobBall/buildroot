@@ -1,9 +1,18 @@
 #!/usr/bin/python
 
+import platform
+
 """Maps an RPM package name to the equivalent DEB.
    The MAPPING is static, but in future will be 
    made dynamically by querying the package databases."""
 
+TARGET_SPECIFIC_MAPPING = {
+    'jessie': {
+            'kernel': ['linux-image-amd64'],
+            'kernel-firmware': ['firmware-linux-free'],
+            "xen-libs": ["libxen-4.3"],
+            },
+    }
 
 MAPPING = { 
     # Our packages
@@ -119,7 +128,7 @@ MAPPING = {
     "xen": ["xen-hypervisor", "qemu-system-x86", "blktap-utils"],
     "libuuid": ["uuid"],
     "libvirt": ["libvirt0", "libvirt-bin"],
-    "xen-libs": ["libxen-4.3"],
+    "xen-libs": ["libxen-4.2"],
     "ncurses": ["libncurses5"],
     "chkconfig": [], 
     "initscripts": [], 
@@ -134,8 +143,8 @@ MAPPING = {
     "/sbin/ldconfig": ["/sbin/ldconfig"],
     "kernel-headers": ["linux-headers-3.2.0-51-generic"],
     "libvirt-docs": ["libvirt-doc"],
-    "kernel": ["linux-image-amd64"],
-    "kernel-firmware": ["firmware-linux-free"],
+    "kernel": ["linux-image"],
+    "kernel-firmware": ["linux-firmware"],
     "/bin/sh": [],
     "xen-runtime": ["xen-utils"],
     "nfs-utils": ["nfs-common"],
@@ -163,9 +172,12 @@ SECONDARY_MAPPING = {
     "qemu-system-x86-dev": ["qemu-system-x86"],
 }
 
-def map_package(name):
+def map_package(name, target=None):
     """map an rpm to a corresponding deb, based on file contents"""
     is_devel = False
+
+    if target is None:
+        target = platform.linux_distribution(full_distribution_name=False)[2].lower()
 
     # RPM 4.6 adds architecture constraints to dependencies.  Drop them.
     if name.endswith( "(x86-64)" ):
@@ -173,7 +185,12 @@ def map_package(name):
     if name.endswith( "-devel" ):
         is_devel = True
         name = name[ :-len("-devel") ]
-    mapped = MAPPING.get(name, [name])
+
+    default = [name]
+    if target in TARGET_SPECIFIC_MAPPING:
+        default = TARGET_SPECIFIC_MAPPING[target].get(name, default)
+
+    mapped = MAPPING.get(name, default)
     res = []
     for debname in mapped:
         if is_devel:
@@ -182,7 +199,7 @@ def map_package(name):
     return res
 
 
-def map_package_name(hdr):
+def map_package_name(hdr, target=None):
     """rewrite an rpm name to fit with debian standards"""
     name = hdr['name']
 
@@ -196,7 +213,7 @@ def map_package_name(hdr):
     # Debian prefixes library packag names with 'lib'
     #if "Libraries" in hdr['group'] or "library" in hdr['summary'].lower():
     #    name = "lib" + name
-    name = name.replace( name, map_package(name)[0] )
+    name = name.replace( name, map_package(name, target)[0] )
 
     if is_devel:
         name += "-dev"
