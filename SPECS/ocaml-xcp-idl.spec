@@ -70,6 +70,9 @@ ocaml setup.ml -install
 %{_libdir}/ocaml/xcp/*
 
 %changelog
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+- Updated to building from master
+
 * Thu Sep 26 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.14-1
 - Support searching for executables on the XCP_PATH as well as the PATH
 
