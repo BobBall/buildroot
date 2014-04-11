@@ -42,7 +42,7 @@ install dist/build/obuild-from-oasis/obuild-from-oasis %{buildroot}/%{_bindir}
 %{_bindir}/obuild-from-oasis
 
 %changelog
-* Fri Mar 28 2014 Bob Ball <bob.ball@citrix.com> - 0.0.4
+* Fri Mar 28 2014 Bob Ball <bob.ball@citrix.com> - 0.0.4-1
 - Upgrade to 0.0.4 
 
 * Thu May 30 2013 David Scott <dave.scott@eu.citrix.com> - 0.0.2-1

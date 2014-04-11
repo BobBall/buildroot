@@ -48,6 +48,6 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/ctypes/*
 
 %changelog
-* Wed Nov 13 2013 Mike McClurg <mike.mcclurg@citrix.com>
+* Wed Nov 13 2013 Mike McClurg <mike.mcclurg@citrix.com> - 0.2.3-1
 - Initial package
 

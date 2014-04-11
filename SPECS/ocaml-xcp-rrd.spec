@@ -49,6 +49,9 @@ make install
 %{_libdir}/ocaml/xcp-rrd/*
 
 %changelog
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+- Updated to build daily snapshots
+
 * Thu Jun  6 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.0-1
 - Initial package
 
