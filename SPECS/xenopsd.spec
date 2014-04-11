@@ -196,7 +196,7 @@ fi
 #fi
 
 %changelog
-* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)-1
 - Updated to build daily snapshots
 
 * Fri Jan 17 2014 Euan Harris <euan.harris@eu.citrix.com> - 0.9.34-1

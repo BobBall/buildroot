@@ -56,7 +56,7 @@ make install
 %{_libdir}/ocaml/xenops/*
 
 %changelog
-* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)-1
 - Updated to build daily snapshots
 
 * Wed Sep 25 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.2-1

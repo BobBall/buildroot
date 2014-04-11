@@ -52,7 +52,7 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/oPasswd/*
 
 %changelog
-* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)-1
 - Updated to build daily snapshot
 
 * Thu Oct 31 2013 Mike McClurg <mike.mcclurg@citrix.com>

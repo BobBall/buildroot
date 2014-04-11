@@ -172,7 +172,7 @@ fi
 %{python_sitelib}/XenAPIPlugin.pyc
 
 %changelog
-* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)-1
 - Updated to build daily snapshots
 
 * Wed Apr 2 2014 Euan Harris <euan.harris@citrix.com> - 1.9.39-1

@@ -93,7 +93,7 @@ make install DESTDIR=${buildroot}
 
 
 %changelog
-* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)-1
 - Updated to build daily snapshots
 
 * Mon Oct 21 2013 David Scott <dave.scott@eu.citrix.com> - 0.9.9-3

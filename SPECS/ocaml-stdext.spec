@@ -53,7 +53,7 @@ make install DESTDIR=${buildroot}
 %{_libdir}/ocaml/stublibs/dllstdext_stubs.so.owner
 
 %changelog
-* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)
+* Fri Apr 11 2014 Bob Ball <bob.ball@citrix.com> - %(date +%%y%%m%%d)-1
 - Updated to build daily snapshot
 
 * Tue Apr 1 2014 Euan Harris <euan.harris@citrix.com> - 0.10.0-1
