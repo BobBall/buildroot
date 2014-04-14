@@ -3,16 +3,17 @@
 Summary: XCP storage managers
 Name:    xcp-sm
 Version: 0.9.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Group:   System/Hypervisor
 License: LGPL
 URL:  https://github.com/xapi-project/sm
-Source0: https://github.com/euanh/sm/archive/%{version}/sm-%{version}.tar.gz
+Source0: https://github.com/BobBall/sm/archive/f6cef7b960f35efe6369ea56d795de1f307246a9/sm-%{version}.tar.gz
 Source1: xcp-mpath-scsidev-rules
 Source2: xcp-mpath-scsidev-script
 BuildRequires: python-devel
 BuildRequires: swig
 BuildRequires: xen-devel
+BuildRequires: pylint
 Requires: iscsi-initiator-utils
 Requires: sg3_utils
 Requires: xen-runtime
@@ -21,7 +22,7 @@ Requires: xen-runtime
 This package contains storage backends used in XCP
 
 %prep
-%setup -q -n sm-%{version}
+%setup -q -n sm-f6cef7b960f35efe6369ea56d795de1f307246a9
 cp %{SOURCE1} xcp-mpath-scsidev-rules
 cp %{SOURCE2} xcp-mpath-scsidev-script
 
@@ -38,6 +39,35 @@ install -m 0755 xcp-mpath-scsidev-script %{buildroot}/etc/udev/scripts/xs-mpath-
 
 %post
 [ ! -x /sbin/chkconfig ] || chkconfig --add mpathroot
+[ ! -x /sbin/chkconfig ] || chkconfig --add sm-multipath
+service sm-multipath start
+
+[ -f /etc/lvm/lvm.conf.orig ] || cp /etc/lvm/lvm.conf /etc/lvm/lvm.conf.orig || exit $?
+[ -d /etc/lvm/master ] || mkdir /etc/lvm/master || exit $?
+mv -f /etc/lvm/lvm.conf /etc/lvm/master/lvm.conf || exit $?
+sed -i 's/metadata_read_only =.*/metadata_read_only = 0/' /etc/lvm/master/lvm.conf || exit $?
+sed -i 's/archive = .*/archive = 0/' /etc/lvm/master/lvm.conf || exit $?
+sed -i 's/filter \= \[ \"a\/\.\*\/\" \]/filter = \[ \"r\|\/dev\/xvd\.\|\"\, \"r\|\/dev\/VG\_Xen\.\*\/\*\|\"\]/g' /etc/lvm/master/lvm.conf || exit $?
+cp /etc/lvm/master/lvm.conf /etc/lvm/lvm.conf || exit $?
+sed -i 's/metadata_read_only =.*/metadata_read_only = 1/' /etc/lvm/lvm.conf || exit $?
+# We try to be "update-alternatives" ready.
+# If a file exists and it is not a symlink we back it up
+if [ -e /etc/multipath.conf -a ! -h /etc/multipath.conf ]; then
+   mv -f /etc/multipath.conf /etc/multipath.conf.$(date +%F_%T)
+fi
+update-alternatives --install /etc/multipath.conf multipath.conf /etc/multipath.xenserver/multipath.conf 90
+
+%preun
+[ ! -x /sbin/chkconfig ] || chkconfig --del sm-multipath
+#only remove in case of erase (but not at upgrade)
+if [ $1 -eq 0 ] ; then
+	update-alternatives --remove multipath.conf /etc/multipath.xenserver/multipath.conf
+fi
+exit 0
+
+%postun
+[ ! -d /etc/lvm/master ] || rm -Rf /etc/lvm/master || exit $?
+cp -f /etc/lvm/lvm.conf.orig /etc/lvm/lvm.conf || exit $?
 
 %files
 /etc/cron.d/*
@@ -213,7 +243,6 @@ install -m 0755 xcp-mpath-scsidev-script %{buildroot}/etc/udev/scripts/xs-mpath-
 /usr/lib/xapi/sm/scsi_host_rescan.py
 /usr/lib/xapi/sm/scsi_host_rescan.pyc
 /usr/lib/xapi/sm/scsi_host_rescan.pyo
-/opt/xensource/sm/snapwatchd/_xslib.so
 /opt/xensource/sm/snapwatchd/snapwatchd
 /opt/xensource/sm/snapwatchd/xslib.py
 /opt/xensource/sm/snapwatchd/xslib.pyc
@@ -241,7 +270,13 @@ install -m 0755 xcp-mpath-scsidev-script %{buildroot}/etc/udev/scripts/xs-mpath-
 /usr/lib/xapi/sm/xs_errors.py
 /usr/lib/xapi/sm/xs_errors.pyc
 /usr/lib/xapi/sm/xs_errors.pyo
+/usr/lib/xapi/sm/wwid_conf.py
+/usr/lib/xapi/sm/wwid_conf.pyc
+/usr/lib/xapi/sm/wwid_conf.pyo
 /sbin/mpathutil
+/etc/rc.d/init.d/sm-multipath
+%config /etc/udev/rules.d/40-multipath.rules
+%config /etc/multipath.xenserver/multipath.conf
 
 
 %package rawhba
@@ -263,6 +298,9 @@ Fiber Channel raw LUNs as separate VDIs (LUN per VDI)
 /usr/lib/xapi/sm/B_util.pyo
 
 %changelog
+* Tue Mar 03 2014 Bob Ball <bob.ball@eu.citrix.com> - 0.9.6-3
+- Rebased on xen-project/sm.git 84dcbf4e930e6f2a047a4978b5eca14e9dff8110
+
 * Tue Dec 10 2013 Euan Harris <euan.harris@eu.citrix.com> - 0.9.6-2
 - Add dependency on xen-runtime
 
