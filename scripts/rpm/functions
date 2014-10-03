@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function get_distro() {
+    DISTRO=$(lsb_release -si)
+    MAJ_REL=$(lsb_release -sr | cut -d'.' -f1)
+    ARCH=$(uname -m)
+}
+
+function check_install_epel() {
+    local distribution=$1
+    local revision=$2
+    # Need epel for mock
+    case "$distribution" in
+	CentOS|RedHatEnterpriseServer)
+	    # Need EPEL
+	    if (grep -q epel /etc/yum.repos.d/*) then
+		: # epel already in /etc/yum.repos.d; assume installed + enabled
+	    else
+		echo -n "Adding EPEL repository"
+		sudo install -m 0644 scripts/rpm/epel.repo /etc/yum.repos.d/epel.repo
+		sudo install -m 0644 scripts/rpm/RPM-GPG-KEY-EPEL-${2} /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-${2}
+	    fi
+	    ;;
+	Fedora)
+	    ;;
+    esac
+}
