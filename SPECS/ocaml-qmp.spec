@@ -13,6 +13,8 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-obuild
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-yojson-devel
+BuildRequires:  ocaml-biniou-devel
+BuildRequires:  ocaml-easy-format-devel
 
 %description
 An implementation of the Qemu Message Protocol (QMP) that allows
