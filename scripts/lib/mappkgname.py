@@ -15,6 +15,9 @@ TARGET_SPECIFIC_MAPPING = {
     'ubuntu:14.04': {
             "xen-libs": ["libxen-4.4"],
             },
+    'ubuntu:14.10': {
+            "xen-libs": ["libxen-4.4"],
+            },
     'linaro:14.04': {
             "xen-libs": ["libxen-4.4"],
             },
